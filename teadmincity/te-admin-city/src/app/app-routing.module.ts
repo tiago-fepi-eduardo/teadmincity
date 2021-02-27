@@ -1,9 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
 import { MapComponent } from './map/map.component';
+import { SearchComponent } from './search/search.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
-  {path: 'map', component: MapComponent}
+  {path: '', component: HomeComponent},
+  {path: 'map', component: MapComponent},
+  {path: 'search', component: SearchComponent},
+  {path: 'about', component: AboutComponent},
+  {path: 'contact', component: ContactComponent},
+
+  {path: '**', redirectTo: ''},
 ];
 
 @NgModule({

@@ -12,13 +12,13 @@
   
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item is-active">
+        <a class="navbar-item is-active"  routerLink="/">
           Inicial
         </a>
-        <a class="navbar-item" routerLink="/map">
+        <a class="navbar-item" routerLink="map">
           Mapa
         </a>
-        <a class="navbar-item">
+        <a class="navbar-item" routerLink="search">
           Pesquisa
         </a>
         <span class="navbar-item">
@@ -29,10 +29,10 @@
             Mais
           </a>
           <div class="navbar-dropdown">
-            <a class="navbar-item">
+            <a class="navbar-item"  routerLink="about">
               Sobre
             </a>
-            <a class="navbar-item">
+            <a class="navbar-item" routerLink="contact">
               Contato
             </a>
           </div>
@@ -50,4 +50,6 @@
       </div>
       
     </div>
-  </nav>
+</nav>
+
+<router-outlet></router-outlet>
