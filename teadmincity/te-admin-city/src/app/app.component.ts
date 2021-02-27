@@ -9,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Admin City';
+  /*
+  texto : string = 'Wenceslau Braz - Cuidado com as cargas';
+  lat: number = -23.8779431;
+  lng: number = -49.8046873;
+  zoom: number = 15;
+  */
 }
