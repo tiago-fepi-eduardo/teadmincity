@@ -1,1 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+.main{
+    position: relative;
+    min-height: 100vh;
+}
+
+.container
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.footer {
+    padding: 16px;
+    
+    background-color: #3298dc;
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+ }
+
+ .footer a {
+    color: #fff;
+ }
