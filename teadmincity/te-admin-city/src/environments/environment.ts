@@ -6,12 +6,12 @@ export const environment = {
   production: false,
   endpoints:
   {
-    contact: "http://localhost:1000/api/contact",
-    about: "http://localhost:1000//api/about",
-    login: "http://localhost:1000/api/login",
-    map: "http://localhost:1000/api/map",
-    search: "http://localhost:1000/api/search",
-    home: "http://localhost:1000/api/home"
+    contact: "http://localhost/api/contact",
+    about: "http://localhost/api/about",
+    login: "http://localhost/api/login",
+    map: "http://localhost/api/map",
+    search: "http://localhost/api/search",
+    home: "http://localhost/api/home"
   }
 };
 

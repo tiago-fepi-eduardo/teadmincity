@@ -17,7 +17,7 @@ export class LoginService {
       userName: user,
       password: pass
     }).toPromise().then((data:any) =>
-      console.log('My return:', data.id)
+      console.log('My return:', data)
     );
   }
 }

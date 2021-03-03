@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AboutService } from '../_services/about.service';
+import { AboutModel } from '../_models/about-model';
 
 @Component({
   selector: 'app-about',
@@ -8,11 +9,21 @@ import { AboutService } from '../_services/about.service';
 })
 export class AboutComponent implements OnInit {
 
-  constructor(private api:AboutService) { }
+  about: AboutModel;
 
-  ngOnInit(): void { 
-      this.api.GetAll().subscribe((data)=>{
-          console.warn('My about info: ', data);
-      });
+  constructor(private api:AboutService) { 
+    this.about = new AboutModel();
+  }
+
+  ngOnInit() { 
+      this.api.GetAll()
+      .subscribe({
+        next: (data:any) => {
+          this.about = data;
+        },
+        error: error => {
+            console.error('There was an error: ', error);
+        },
+    });
   }
 }

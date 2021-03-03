@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContactService } from '../_services/contact.service';
+import { ContactModel } from '../_models/contact-model';
 
 @Component({
   selector: 'app-contact',
@@ -8,16 +9,25 @@ import { ContactService } from '../_services/contact.service';
 })
 export class ContactComponent implements OnInit {
 
-  constructor(private api:ContactService) { }
+  contacts: ContactModel[];
 
-  // On load
-  ngOnInit(): void {
-    this.api.GetAll().subscribe((data)=>{
-      console.warn('My contact info: ', data);
-    });
+  constructor(private api:ContactService) { 
+    this.contacts = [];
   }
 
-  // On post
+  ngOnInit(): void {
+    this.api.GetAll()
+    .subscribe({
+      next: (data:any) => {
+        this.contacts = data;
+      },
+      error: error => {
+          console.error('There was an error: ', error);
+      },
+    });
+  }
+  
+  /*
   userName! :String;
   password! :String;
 
@@ -25,4 +35,5 @@ export class ContactComponent implements OnInit {
   {
     this.api.Post(this.userName, this.password);
   }
+  */
 }
