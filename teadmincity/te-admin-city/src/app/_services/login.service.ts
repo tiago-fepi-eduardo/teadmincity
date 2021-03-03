@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { LoginModel } from '../_models/login-model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +11,12 @@ export class LoginService {
   constructor(private http:HttpClient) { 
   }
 
-  Post(user: String, pass:String)
+  Post(login: LoginModel)
   {
     return this.http.post(environment.endpoints.login,
     {
-      userName: user,
-      password: pass
-    }).toPromise().then((data:any) =>
-      console.log('My return:', data)
-    );
+      'username': login.username,
+      'password': login.password
+    });
   }
 }

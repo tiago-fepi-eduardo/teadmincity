@@ -8,7 +8,7 @@ export const environment = {
   {
     contact: "http://localhost/api/contact",
     about: "http://localhost/api/about",
-    login: "http://localhost/api/login",
+    login: "http://localhost/api/user/authenticate",
     map: "http://localhost/api/map",
     search: "http://localhost/api/search",
     home: "http://localhost/api/home"
