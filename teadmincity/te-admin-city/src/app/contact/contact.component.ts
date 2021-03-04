@@ -22,7 +22,7 @@ export class ContactComponent implements OnInit {
         this.contacts = data;
       },
       error: error => {
-          console.error('There was an error: ', error);
+          console.error(error);
       },
     });
   }

@@ -27,14 +27,19 @@ export class JwtService {
       return jwt_decode(this.jwtToken);
     }
  
-    getUser() {
-      this.decodeToken();
-      return this.decodedToken ? this.decodedToken.displayname : null;
-    }
- 
-    getEmailId() {
+    getEmail() {
       this.decodeToken();
       return this.decodedToken ? this.decodedToken.email : null;
+    }
+    
+    getUserName() {
+      this.decodeToken();
+      return this.decodedToken ? this.decodedToken.fullName : null;
+    }
+
+    getRole() {
+      this.decodeToken();
+      return this.decodedToken ? this.decodedToken.role : null;
     }
  
     getExpiryTime() {

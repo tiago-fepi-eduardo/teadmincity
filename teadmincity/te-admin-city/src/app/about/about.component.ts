@@ -22,7 +22,7 @@ export class AboutComponent implements OnInit {
           this.about = data;
         },
         error: error => {
-            console.error('There was an error: ', error);
+            console.error(error);
         },
     });
   }
