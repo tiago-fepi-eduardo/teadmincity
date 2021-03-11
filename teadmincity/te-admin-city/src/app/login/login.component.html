@@ -1,4 +1,8 @@
-<div class="field">
+<div class="container-login">
+  <div class="field">
+    <img src="../../assets/img/logo_reverse.png" class="logo"> 
+  </div>
+  <div class="field">
     <p class="control has-icons-left has-icons-right">
       <input class="input" type="email" placeholder="Email" [(ngModel)]="login.username">
       <span class="icon is-small is-left">
@@ -24,3 +28,7 @@
       </button>
     </p>
   </div>
+  <div class="notification is-warning is-light" [ngClass]="{'show': login.error != null, 'none': login.error == null }">
+    {{login.error}}
+  </div>
+</div>

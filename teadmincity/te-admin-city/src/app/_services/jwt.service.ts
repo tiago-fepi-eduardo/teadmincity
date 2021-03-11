@@ -29,22 +29,22 @@ export class JwtService {
  
     getEmail() {
       this.decodeToken();
-      return this.decodedToken ? this.decodedToken.email : null;
+      return this.decodedToken ? this.decodedToken.email : '';
     }
     
-    getUserName() {
+    getFullName() {
       this.decodeToken();
-      return this.decodedToken ? this.decodedToken.fullName : null;
+      return this.decodedToken ? this.decodedToken.fullName : '';
     }
 
     getRole() {
       this.decodeToken();
-      return this.decodedToken ? this.decodedToken.role : null;
+      return this.decodedToken ? this.decodedToken.role : '';
     }
  
     getExpiryTime() {
       this.decodeToken();
-      return this.decodedToken ? this.decodedToken.exp : null;
+      return this.decodedToken ? this.decodedToken.exp : '';
     }
  
     isTokenExpired(): boolean {

@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { JwtService } from '../_services/jwt.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AboutService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private jwt: JwtService) { }
 
   GetAll()
   {
     let header = new HttpHeaders()
-      .set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTQ4MTAwNDksImlzcyI6IkNpdHkuY29tIiwiYXVkIjoiQ2l0eS5jb20ifQ.MAPuaMwLjhFcy3O_zv_JrlemtnUshMnQSy_mMMo3JcI`)
+      .set('Authorization', `bearer ` + this.jwt.jwtToken);
+
+    console.log(this.jwt.jwtToken);
 
     return this.http.get(environment.endpoints.about, 
     {

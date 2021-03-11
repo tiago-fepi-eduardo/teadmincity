@@ -41,6 +41,17 @@
   
       <div class="navbar-end">
         <div class="navbar-item">
+          <span class="navbar-item">
+            {{login.fullname}}
+          </span>
+          <span class="navbar-item">
+            |
+          </span>
+          <span class="navbar-item">
+            {{login.role}}
+          </span>
+        </div>
+        <div class="navbar-item">
           <div class="buttons">
             <a class="button is-light" routerLink="login">
               Sair
@@ -51,7 +62,3 @@
       
     </div>
 </nav>
-
-<div class="container">
-  <router-outlet></router-outlet>
-</div>

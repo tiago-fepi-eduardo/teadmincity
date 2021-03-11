@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AgmCoreModule } from '@agm/core';
 import { HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,8 @@ import { AboutComponent } from './about/about.component';
 import { SearchComponent } from './search/search.component';
 import { MapComponent } from './map/map.component';
 import { LoginComponent } from './login/login.component';
+import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
+import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { LoginComponent } from './login/login.component';
     AboutComponent,
     SearchComponent,
     MapComponent,
-    LoginComponent
+    LoginComponent,
+    LoginLayoutComponent,
+    HomeLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +41,7 @@ import { LoginComponent } from './login/login.component';
       apiKey: 'AIzaSyDaniPLp98EiLdP7uFnwiuLLTCglvAP8v4'
     })
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
