@@ -17,20 +17,28 @@ export class ContactService {
 
     return this.http.get(environment.endpoints.contact, 
     {
-      headers : header
-    })
+      headers : header,
+      params:{
+        //'id':'2',
+        //'closed':'',
+      }
+    });
   }
-
-  /*
-  Post(user: String, pass:String)
+  
+  Put(id: number, closed:boolean)
   {
-    return this.http.post(environment.endpoints.contact,
-    {
-      userName: user,
-      password: pass
-    }).toPromise().then((data:any) =>
-      console.log('My return:', data.id)
+    let header = new HttpHeaders()
+      .set('Authorization', `Bearer ` + this.jwt.jwtToken)
+
+     
+    return this.http.put(environment.endpoints.contact,
+      {
+        'id':id,
+        'closed':closed,
+      },
+      { 
+        headers: header
+      }
     );
   }
-  */
 }

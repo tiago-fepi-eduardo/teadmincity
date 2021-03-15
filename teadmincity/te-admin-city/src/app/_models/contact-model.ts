@@ -4,4 +4,7 @@ export class ContactModel {
     message!: string;
     email!: string;
     createdAt!:string;
+    closed!:boolean;
+    callbackSuccess!: boolean;
+    callbackMessage!: string;
 }

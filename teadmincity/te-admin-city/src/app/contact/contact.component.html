@@ -8,6 +8,7 @@
             <th><abbr title="Played">Subject</abbr></th>
             <th><abbr title="Won">Message</abbr></th>
             <th><abbr title="Drawn">Date</abbr></th>
+            <th><abbr title="Drawn">Action</abbr></th>
         </tr>
         </thead>
         <tfoot>
@@ -17,6 +18,7 @@
             <th><abbr title="Played">Subject</abbr></th>
             <th><abbr title="Won">Message</abbr></th>
             <th><abbr title="Drawn">Date</abbr></th>
+            <th><abbr title="Drawn">Action</abbr></th>
         </tr>
         </tfoot>
         <tbody>
@@ -26,7 +28,99 @@
             <td>{{contact.subject}}</td>
             <td>{{contact.message}}</td>
             <td>{{contact.createdAt}}</td>
+            <td>
+                <img class="icon-list" src="../../assets/img/lupin.png" (click)="viewData(contact.id)">
+                <img class="icon-list" src="../../assets/img/edit.png" (click)="editData(contact.id)">
+            </td>
         </tr>      
         </tbody>
     </table>
+</div>
+
+<!-- Modal ... -->
+<div class="modal" [ngClass]="{'show': modal, 'none': !modal}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title"></p>
+        <button class="delete" aria-label="close" (click)="closeData()"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">E-mail</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control">
+                  <input class="input is-static" type="email" readonly value="{{contact.email}}" >
+                </p>
+              </div>
+            </div>
+        </div>
+        
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Subject</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control">
+                  <input class="input is-static" type="text" readonly value="{{contact.subject}}">
+                </p>
+              </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Message</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control">
+                  <input class="input is-static" type="text" readonly value="{{contact.message}}">
+                </p>
+              </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Date</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control">
+                  <input class="input is-static" type="datetime" readonly value="{{contact.createdAt}}">
+                </p>
+              </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Closed</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <label class="checkbox" [attr.disabled]="readonly == true ? true : null">
+                        <input type="checkbox" [attr.disabled]="readonly == true ? true : null" value="{{contact.closed}}" [(ngModel)]="contact.closed">
+                        Archive item and not show as open anymore
+                      </label>
+                </div>
+            </div>
+        </div>
+        <!---->
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success" (click)="putData()">Save changes</button>
+        <button class="button" (click)="closeData()">Cancel</button>
+      </footer>
+    </div>
+</div>
+
+<div class="notification is-light" [ngClass]="{'show': alert, 'none': !alert, 'is-success': contact.callbackSuccess, 'is-warning': !contact.callbackSuccess}">
+    {{contact.callbackMessage}}
 </div>

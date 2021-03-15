@@ -34,10 +34,10 @@ export class LoginComponent {
           this.router.navigate(["home"]);
         }
         else
-          this.login.error = data.error.message;
+          this.login.callbackMessage = data.error.message;
       },
       error: error => {
-        this.login.error = error;
+        this.login.callbackMessage = error;
       },
     });
   }  

@@ -28,7 +28,7 @@
       </button>
     </p>
   </div>
-  <div class="notification is-warning is-light" [ngClass]="{'show': login.error != null, 'none': login.error == null }">
-    {{login.error}}
+  <div class="notification is-warning is-light" [ngClass]="{'show': login.callbackMessage != null, 'none': login.callbackMessage == null }">
+    {{login.callbackMessage}}
   </div>
 </div>
