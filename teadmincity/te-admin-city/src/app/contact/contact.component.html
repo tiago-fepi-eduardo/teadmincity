@@ -11,16 +11,6 @@
             <th><abbr title="Drawn">Action</abbr></th>
         </tr>
         </thead>
-        <tfoot>
-        <tr>
-            <th><abbr title="Position">ID</abbr></th>
-            <th>E-mail</th>
-            <th><abbr title="Played">Subject</abbr></th>
-            <th><abbr title="Won">Message</abbr></th>
-            <th><abbr title="Drawn">Date</abbr></th>
-            <th><abbr title="Drawn">Action</abbr></th>
-        </tr>
-        </tfoot>
         <tbody>
         <tr *ngFor="let contact of contacts; let num = index">
             <th>{{contact.id}}</th>
@@ -37,7 +27,17 @@
     </table>
 </div>
 
-<!-- Modal ... -->
+<!-- Pagination -->
+<nav class="pagination" role="navigation" aria-label="pagination">
+  <a class="pagination-previous" (click)="paginationData(contact.page - 1)">Anterior</a>
+  <a class="pagination-next" (click)="paginationData(contact.page + 1)">Próxima</a>
+  <p class="pagination-text">Page {{contact.page + 1}}</p>
+  <p class="pagination-text">of {{contact.totalPage + 1}}</p>
+  <p class="pagination-text">|</p>
+  <p class="pagination-text">Total of {{contact.totalItems}} items</p>
+</nav>
+
+<!-- Modal -->
 <div class="modal" [ngClass]="{'show': modal, 'none': !modal}">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -121,6 +121,6 @@
     </div>
 </div>
 
-<div class="notification is-light" [ngClass]="{'show': alert, 'none': !alert, 'is-success': contact.callbackSuccess, 'is-warning': !contact.callbackSuccess}">
+<div class="notification" [ngClass]="{'show': alert, 'none': !alert, 'is-success': contact.callbackSuccess, 'is-warning': !contact.callbackSuccess}">
     {{contact.callbackMessage}}
 </div>

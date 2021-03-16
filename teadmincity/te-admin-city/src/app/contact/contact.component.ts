@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContactService } from '../_services/contact.service';
 import { ContactModel } from '../_models/contact-model';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-contact',
@@ -24,18 +25,51 @@ export class ContactComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.api.GetAll()
+    this.api.GetAll(0, environment.pagination)
     .subscribe({
       next: (data:any) => {
-        this.contacts = data;
+        this.contacts = data.contacts;
+        this.contact.totalItems = data.total;
+        this.contact.totalPage = Math.floor(data.total / environment.pagination);
+        this.contact.page = data.page;
       },
       error: error => {
           this.contact.callbackSuccess = false;
           this.contact.callbackMessage = error;
           this.alert = true;
           console.error(error);
+          setTimeout(() => {
+            this.alert = false;
+          }, 5000);
       },
     });
+  }
+
+  paginationData(page: number)
+  {
+    if(page >= 0 && page <= this.contact.totalPage)
+    {
+      let skip = environment.pagination * page;
+
+      this.api.GetAll(skip, environment.pagination)
+      .subscribe({
+        next: (data:any) => {
+          this.contacts = data.contacts;
+          this.contact.totalItems = data.total;
+          this.contact.totalPage = Math.floor(data.total / environment.pagination);
+          this.contact.page = data.page;
+        },
+        error: error => {
+            this.contact.callbackSuccess = false;
+            this.contact.callbackMessage = error;
+            this.alert = true;
+            setTimeout(() => {
+              this.alert = false;
+            }, 5000);
+            console.error(error);
+        },
+      });
+    }
   }
 
   putData()
@@ -47,11 +81,17 @@ export class ContactComponent implements OnInit {
           this.contact.callbackSuccess = true;
           this.contact.callbackMessage = 'Success.';
           this.alert = true;
+          setTimeout(() => {
+            this.alert = false;
+          }, 5000);
         },
         error: error => {
           this.contact.callbackSuccess = false;
           this.contact.callbackMessage = error;
           this.alert = true;
+          setTimeout(() => {
+            this.alert = false;
+          }, 5000);
           console.error(error);
         },
       });

@@ -5,6 +5,9 @@ export class ContactModel {
     email!: string;
     createdAt!:string;
     closed!:boolean;
+    totalItems: number;
+    totalPage: number;
+    page: number;
     callbackSuccess!: boolean;
     callbackMessage!: string;
 }

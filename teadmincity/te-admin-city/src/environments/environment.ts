@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  pagination: 10,
   endpoints:
   {
     contact: "http://localhost/api/contact",

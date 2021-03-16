@@ -13,7 +13,7 @@
     padding: 16px;    
     background-color: #3298dc;
     color: #fff;
-    position: absolute;
+    /*position: absolute;*/
     bottom: 0;
     width: 100%;
  }
@@ -65,4 +65,12 @@
    height: 20px;
    margin-right: 15px;
    cursor: pointer;
+ }
+
+ .pagination{
+   justify-content: flex-end;
+ }
+
+ .pagination-text{
+    margin-right: 8px;
  }

@@ -10,26 +10,26 @@ export class ContactService {
 
   constructor(private http:HttpClient, private jwt: JwtService) { }
 
-  GetAll()
+  GetAll(skip: number, limit: number)
   {
     let header = new HttpHeaders()
       .set('Authorization', `Bearer ` + this.jwt.jwtToken)
 
-    return this.http.get(environment.endpoints.contact, 
-    {
-      headers : header,
-      params:{
-        //'id':'2',
-        //'closed':'',
+    return this.http.get(environment.endpoints.contact,
+      {
+        headers : header,
+        params:{
+            'skip':skip.toString(),
+            'limit':limit.toString() 
+        }
       }
-    });
+    );
   }
   
   Put(id: number, closed:boolean)
   {
     let header = new HttpHeaders()
       .set('Authorization', `Bearer ` + this.jwt.jwtToken)
-
      
     return this.http.put(environment.endpoints.contact,
       {
