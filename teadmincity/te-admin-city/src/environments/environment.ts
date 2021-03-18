@@ -12,7 +12,7 @@ export const environment = {
     login: "http://localhost/api/user/authenticate",
     map: "http://localhost/api/map",
     search: "http://localhost/api/search",
-    home: "http://localhost/api/home"
+    news: "http://localhost/api/news"
   }
 };
 

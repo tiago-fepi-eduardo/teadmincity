@@ -1,37 +1,57 @@
 <div class="tile is-ancestor">
-  <div class="tile is-vertical is-8">
-    <div class="tile">
-      <div class="tile is-parent is-vertical">
-        <article class="tile is-child box">
-          <p class="title">One</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
-        </article>
-        <article class="tile is-child box">
-          <p class="title">Two</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
-        </article>
-      </div>
-      <div class="tile is-parent">
-        <article class="tile is-child box">
-          <p class="title">Three</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
-        </article>
-      </div>
+  <div class="tile is-horizontal"> 
+    <div class="tile is-parent">
+      <article class="tile is-child box">
+        <p class="title">Graph 1 fixed</p>
+            <p>Lorem.</p>
+      </article>
     </div>
     <div class="tile is-parent">
       <article class="tile is-child box">
-          <p class="title">Four</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+        <p class="title">Graph 2 fixed</p>
+            <p>Loren.</p>
+      </article>
+    </div>
+    <div class="tile is-parent">
+      <article class="tile is-child box">
+        <p class="title">Graph 3 fixed</p>
+            <p>Lorem.</p>
       </article>
     </div>
   </div>
-  <div class="tile is-parent">
-    <article class="tile is-child box">
-      <p class="title">Five</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
-    </article>
+</div>
+
+<div class="tile is-ancestor"> 
+  <div class="tile is-vertical is-8">    
+    <div class="tile is-parent" *ngFor="let new of news; let num = index">
+      <article class="tile is-child box">
+        <p class="title">{{new.title}}</p>
+        <p>{{new.description}}</p>
+      </article>
+    </div>
   </div>
+
+  <div class="tile is-vertical is-4"> 
+    <div class="tile is-parent">
+      <article class="tile is-child box">
+        <p class="title">Last incomes</p>
+        <ul>
+          <li>Lorem ipsum dolor sit amet.</li>
+          <li>Lorem ipsum dolor sit amet.</li>
+          <li>Lorem ipsum dolor sit amet.</li>
+          <li>Lorem ipsum dolor sit amet.</li>
+          <li>Lorem ipsum dolor sit amet.</li>
+        </ul>
+
+        <p class="title">Last updates</p>
+        <ul>
+          <li>Lorem ipsum dolor sit amet.</li>
+          <li>Lorem ipsum dolor sit amet.</li>
+          <li>Lorem ipsum dolor sit amet.</li>
+          <li>Lorem ipsum dolor sit amet.</li>
+          <li>Lorem ipsum dolor sit amet.</li>
+        </ul>
+      </article>
+    </div>
+  </div> 
 </div>
