@@ -7,12 +7,14 @@ export const environment = {
   pagination: 10,
   endpoints:
   {
+    order: "http://localhost/api/order",
     contact: "http://localhost/api/contact",
     about: "http://localhost/api/about",
     login: "http://localhost/api/user/authenticate",
-    map: "http://localhost/api/map",
-    search: "http://localhost/api/search",
-    news: "http://localhost/api/news"
+    news: "http://localhost/api/news",
+    ocorrency: "http://localhost/api/ocorrency",
+    ocorrencyDetail: "http://localhost/api/ocorrencyDetail",
+    orderStatus: "http://localhost/api/orderStatus",
   }
 };
 

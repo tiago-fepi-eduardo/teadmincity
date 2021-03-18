@@ -10,14 +10,13 @@ import { environment } from '../../environments/environment';
 })
 export class ContactComponent implements OnInit {
 
-  contacts: ContactModel[];
+  contacts: ContactModel[] = [];
   contact: ContactModel;
   modal: boolean;
   readonly: boolean;
   alert: boolean;
   
   constructor(private api:ContactService) { 
-    this.contacts = [];
     this.contact = new ContactModel();
     this.modal = false;
     this.readonly = true;
