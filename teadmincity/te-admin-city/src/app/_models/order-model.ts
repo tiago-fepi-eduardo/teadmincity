@@ -10,6 +10,11 @@ export class OrderModel {
     ocorrencyDetail!: OcorrencyDetailModel;
     orderStatus!: OrderStatusModel;
     createdAt!: string;
+
+    ocorrencyId!: number;
+    ocorrencyDetailId!: number;
+    orderStatusId!: number;
+
     totalItems: number;
     totalPage: number;
     page: number;

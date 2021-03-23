@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
       .subscribe({
         next: (data:any) => {
           this.news = data.news;
-          console.log(this.news);
         },
         error: error => {
             console.error(error);

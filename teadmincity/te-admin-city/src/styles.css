@@ -74,3 +74,19 @@
  .pagination-text{
     margin-right: 8px;
  }
+
+.select{
+   width: 100%;
+}
+
+.select select:not([multiple]){
+   width: 100%;
+}
+
+.button.is-info{
+   width: 100%;
+}
+
+.pagination {
+   margin: .50rem;
+}

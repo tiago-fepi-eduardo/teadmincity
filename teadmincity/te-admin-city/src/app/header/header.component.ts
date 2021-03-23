@@ -29,13 +29,6 @@ export class HeaderComponent implements OnInit {
         this.login.fullname = this.jwt.getFullName();
         this.login.username = this.jwt.getEmail();
         this.login.role = this.jwt.getRole();
-        
-        console.log('token=', this.jwt.jwtToken);
-        console.log('Username=', this.jwt.getFullName());
-        console.log('email=', this.jwt.getEmail());
-        console.log('role=', this.jwt.getRole());
-        console.log('expire=', this.jwt.getExpiryTime());
-        console.log('decode=', this.jwt.getDecodeToken());
       }
       else
       {

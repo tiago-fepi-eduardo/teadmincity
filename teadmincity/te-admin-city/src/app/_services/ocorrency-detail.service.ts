@@ -15,8 +15,6 @@ export class OcorrencyDetailService {
     let header = new HttpHeaders()
       .set('Authorization', `bearer ` + this.jwt.jwtToken);
 
-    console.log(this.jwt.jwtToken);
-
     return this.http.get(environment.endpoints.ocorrencyDetail, 
     {
       headers : header

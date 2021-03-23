@@ -15,8 +15,6 @@ export class NewsService {
     let header = new HttpHeaders()
       .set('Authorization', `bearer ` + this.jwt.jwtToken);
 
-    console.log(this.jwt.jwtToken);
-
     return this.http.get(environment.endpoints.news, 
     {
       headers : header

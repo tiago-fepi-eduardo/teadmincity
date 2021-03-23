@@ -115,7 +115,7 @@
         <!---->
       </section>
       <footer class="modal-card-foot">
-        <button class="button is-success" (click)="putData()">Save changes</button>
+        <button class="button is-success" (click)="putData()" *ngIf="!readonly">Save changes</button>
         <button class="button" (click)="closeData()">Cancel</button>
       </footer>
     </div>

@@ -25,8 +25,8 @@
   <div class="tile is-vertical is-8">    
     <div class="tile is-parent" *ngFor="let new of news; let num = index">
       <article class="tile is-child box">
-        <p class="title">{{new.title}}</p>
-        <p>{{new.description}}</p>
+        <div class="title" [innerHTML]=new.title></div>
+        <div [innerHTML]=new.description></div>
       </article>
     </div>
   </div>

@@ -1,3 +1,4 @@
+<!--Filter--> 
 <table class="table is-fullwidth">
     <thead>
       <tr>
@@ -9,42 +10,24 @@
         <th>
             <div class="select">
                 <select>
-                    <option>Tipo de ocorrências</option>
-                    <option>Iluminação</option>
-                    <option>Esgoto</option>
+                    <option value="0">All</option>
+                    <option *ngFor="let ocorrency of ocorrencies; let i = index" [value]=ocorrency.id>{{ocorrency.name}}</option>
                 </select>
             </div>
         </th>
         <th>
             <div class="select">
                 <select>
-                    <option>Sub Tipo de ocorrências</option>
-                    <option>Iluminação / Lampada queimada</option>
-                    <option>Iluminação / Lampada piscando</option>
-                    <option>Esgoto / Vazamento</option>
-                    <option>Esgoto / Odor</option>
-                    <option>Esgoto / Aberto</option>
+                    <option value="0">All</option>
+                    <option *ngFor="let detail of details; let i = index" [value]=detail.id>{{detail.description}}</option>
                 </select>
             </div>
         </th>
         <th>
             <div class="select">
                 <select>
-                    <option>Status</option>
-                    <option>Aberto</option>
-                    <option>Em progresso</option>
-                    <option>Concluída</option>
-                    <option>Cancelada</option>
-                </select>
-            </div>
-        </th>
-        <th>
-            <div class="select">
-                <select>
-                    <option>Bairro</option>
-                    <option>Centro</option>
-                    <option>Tupanci</option>
-                    <option>Aldeinha</option>
+                    <option value="0">All</option>
+                    <option *ngFor="let status of statuses; let i = index" [value]=status.id>{{status.name}}</option>
                 </select>
             </div>
         </th>
@@ -58,6 +41,7 @@
     </thead>
 </table>
 
+<!--Content grid-->
 <table class="table is-fullwidth">
     <thead>
       <tr>
@@ -96,105 +80,131 @@
     <p class="pagination-text">of {{order.totalPage + 1}}</p>
     <p class="pagination-text">|</p>
     <p class="pagination-text">Total of {{order.totalItems}} items</p>
-  </nav>
+</nav>
   
-  <!-- Modal -->
-  <div class="modal" [ngClass]="{'show': modal, 'none': !modal}">
-      <div class="modal-background"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title"></p>
-          <button class="delete" aria-label="close" (click)="closeData()"></button>
-        </header>
-        <section class="modal-card-body">
-          <!-- Content ... -->
-          <div class="field is-horizontal">
-              <div class="field-label is-normal">
-                <label class="label">Latitude</label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <p class="control">
-                    <input class="input is-static" type="text" readonly value="{{order.latitude}}" >
-                  </p>
-                </div>
-              </div>
-          </div>
-          
-          <div class="field is-horizontal">
-              <div class="field-label is-normal">
-                <label class="label">Longitude</label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <p class="control">
-                    <input class="input is-static" type="text" readonly value="{{order.longitude}}">
-                  </p>
-                </div>
-              </div>
-          </div>
-  
-          <div class="field is-horizontal">
-              <div class="field-label is-normal">
-                <label class="label">Ocorrency</label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <p class="control">
-                    <input class="input is-static" type="text" readonly value="{{order.ocorrency.name}}">
-                  </p>
-                </div>
-              </div>
-          </div>
-  
-          <div class="field is-horizontal">
-              <div class="field-label is-normal">
-                <label class="label">Ocorrency Detail</label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <p class="control">
-                    <input class="input is-static" type="text" readonly value="{{order.ocorrencyDetail.description}}">
-                  </p>
-                </div>
-              </div>
-          </div>
-  
-          <div class="field is-horizontal">
+<!-- Modal -->
+<div class="modal" [ngClass]="{'show': modal, 'none': !modal}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+    <!--form [formGroup]="form" (ngSubmit)="putData()"-->
+      <header class="modal-card-head">
+        <p class="modal-card-title"></p>
+        <button class="delete" aria-label="close" (click)="closeData()"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+        <div class="field is-horizontal">
             <div class="field-label is-normal">
-              <label class="label">Status</label>
+              <label class="label">Latitude</label>
             </div>
             <div class="field-body">
               <div class="field">
                 <p class="control">
-                  <input class="input is-static" type="text" readonly value="{{order.orderStatus.name}}">
+                  <input class="input is-static" type="text" readonly value="{{order.latitude}}" >
                 </p>
               </div>
             </div>
-          </div>
-          
-          <div class="field is-horizontal">
+        </div>
+        
+        <div class="field is-horizontal">
             <div class="field-label is-normal">
-                <label class="label">Created at</label>
+              <label class="label">Longitude</label>
             </div>
             <div class="field-body">
-                <div class="field">
+              <div class="field">
                 <p class="control">
-                    <input class="input is-static" type="text" readonly value="{{order.createdAt}}">
+                  <input class="input is-static" type="text" readonly value="{{order.longitude}}">
                 </p>
+              </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Ocorrency</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control" *ngIf="readonly; else editableOcorrency">
+                  <input class="input is-static" type="text" readonly value="{{order.ocorrency.name}}">
+                </p>
+                <ng-template #editableOcorrency>
+                <div class="select">
+                  <select [(ngModel)]="ddlOcorrencyIndex">
+                      <option *ngFor="let ocorrency of ocorrencies; let i = index" [ngValue]=ocorrency.id 
+                      [attr.selected]="ocorrency.id == order.ocorrency.id ? true : null">{{ocorrency.name}}</option>
+                  </select>
                 </div>
+              </ng-template>
+              </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Ocorrency Detail</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control" *ngIf="readonly; else editableDetail">
+                  <input class="input is-static" type="text" readonly value="{{order.ocorrencyDetail.description}}">
+                </p>
+                <ng-template #editableDetail>
+                <div class="select">
+                  <select [(ngModel)]="ddlDetailIndex">
+                      <option *ngFor="let detail of details; let i = index" [ngValue]=detail.id
+                      [attr.selected]="detail.id == order.ocorrencyDetail.id ? true : null">{{detail.description}}</option>
+                  </select>
+                </div>
+              </ng-template>
+              </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">Status</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control" *ngIf="readonly; else editableStatus">
+                <input class="input is-static" type="text" readonly value="{{order.orderStatus.name}}">
+              </p>
+              <ng-template #editableStatus>
+              <div class="select">
+                <select [(ngModel)]="ddlStatusIndex">
+                    <option *ngFor="let status of statuses; let i = index" [ngValue]=status.id
+                    [attr.selected]="status.id == order.orderStatus.id ? true : null">{{status.name}}</option>
+                </select>
+              </div>
+              </ng-template>
             </div>
           </div>
-          <!---->
-        </section>
-        <footer class="modal-card-foot">
-          <button class="button is-success" (click)="putData()">Save changes</button>
-          <button class="button" (click)="closeData()">Cancel</button>
-        </footer>
-      </div>
-  </div>
-  
-  <!-- Alert -->
-  <div class="notification" [ngClass]="{'show': alert, 'none': !alert, 'is-success': order.callbackSuccess, 'is-warning': !order.callbackSuccess}">
-      {{order.callbackMessage}}
-  </div>
+        </div>
+        
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+              <label class="label">Created at</label>
+          </div>
+          <div class="field-body">
+              <div class="field">
+              <p class="control">
+                  <input class="input is-static" type="text" readonly value="{{order.createdAt}}">
+              </p>
+              </div>
+          </div>
+        </div>
+        <!---->
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success" (click)="putData()" *ngIf="!readonly">Save changes</button>
+        <button class="button" (click)="closeData()">Cancel</button>
+      </footer>
+    <!--/form-->
+    </div>
+</div>
+
+<!-- Alert -->
+<div class="notification" [ngClass]="{'show': alert, 'none': !alert, 'is-success': order.callbackSuccess, 'is-warning': !order.callbackSuccess}">
+    {{order.callbackMessage}}
+</div>

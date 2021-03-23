@@ -18,14 +18,21 @@ export class SearchComponent implements OnInit {
 
   orders: OrderModel[] = [];
   order: OrderModel;
-  //ocorrency = new Map();
-  //ocorrencyDetail = new Map();
-  //orderStatus = new Map();
+  ocorrencies: OcorrencyModel[] = [];
+  details: OcorrencyDetailModel[] = [];
+  statuses: OrderStatusModel[] = [];
   modal: boolean;
   readonly: boolean;
   alert: boolean;
   
-  constructor(private api:OrderService) { 
+  ddlOcorrencyIndex: number;
+  ddlDetailIndex: number;
+  ddlStatusIndex: number;
+
+  constructor(private apiOrder:OrderService, 
+      private apiOcorrency:OcorrencyService,
+      private apiDetail:OcorrencyDetailService,
+      private apiStatus:OrderStatusService) { 
     this.order = new OrderModel();
     this.order.ocorrency = new OcorrencyModel();
     this.order.ocorrencyDetail = new OcorrencyDetailModel();
@@ -36,24 +43,10 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.api.GetAll(0, environment.pagination)
-    .subscribe({
-      next: (data:any) => {
-        this.orders = data.orders;
-        this.order.totalItems = data.total;
-        this.order.totalPage = Math.floor(data.total / environment.pagination);
-        this.order.page = data.page;
-      },
-      error: error => {
-        this.order.callbackSuccess = false;
-        this.order.callbackMessage = error;
-        this.alert = true;
-        console.error(error);
-        setTimeout(() => {
-          this.alert = false;
-        }, 5000);
-      },
-    });
+    this.getAllOrder();
+    this.getAllOcorrency();
+    this.getAllOcorrencyDetail();
+    this.getAllStatus();
   }
 
   paginationData(page: number)
@@ -62,7 +55,7 @@ export class SearchComponent implements OnInit {
     {
       let skip = environment.pagination * page;
 
-      this.api.GetAll(skip, environment.pagination)
+      this.apiOrder.GetAll(skip, environment.pagination)
       .subscribe({
         next: (data:any) => {
           this.orders = data.contacts;
@@ -85,21 +78,24 @@ export class SearchComponent implements OnInit {
 
   putData()
   {
-    /*
-    this.api.Put(this.contact.id, this.contact.closed)
+    this.order.ocorrencyId = this.ocorrencies[this.ddlOcorrencyIndex -1].id;
+    this.order.ocorrencyDetailId = this.details[this.ddlDetailIndex -1].id;
+    this.order.orderStatusId = this.statuses[this.ddlStatusIndex -1].id;
+        
+    this.apiOrder.Put(this.order)
       .subscribe({
         next: (data:any) => {
           this.ngOnInit();
-          this.contact.callbackSuccess = true;
-          this.contact.callbackMessage = 'Success.';
+          this.order.callbackSuccess = true;
+          this.order.callbackMessage = 'Success.';
           this.alert = true;
           setTimeout(() => {
             this.alert = false;
           }, 5000);
         },
         error: error => {
-          this.contact.callbackSuccess = false;
-          this.contact.callbackMessage = error;
+          this.order.callbackSuccess = false;
+          this.order.callbackMessage = error;
           this.alert = true;
           setTimeout(() => {
             this.alert = false;
@@ -107,7 +103,7 @@ export class SearchComponent implements OnInit {
           console.error(error);
         },
       });
-    */
+    
     this.modal = false;
     this.readonly = true;
   }
@@ -143,6 +139,10 @@ export class SearchComponent implements OnInit {
       this.order.createdAt = result['createdAt'];
       this.modal = true;
       this.readonly = false;
+
+      this.ddlOcorrencyIndex = (this.ocorrencies.findIndex(c => c.id == this.order.ocorrency.id)) + 1;
+      this.ddlDetailIndex = (this.details.findIndex(c => c.id == this.order.ocorrencyDetail.id)) + 1;
+      this.ddlStatusIndex = (this.statuses.findIndex(c => c.id == this.order.orderStatus.id)) + 1;
     }
   }
 
@@ -150,5 +150,78 @@ export class SearchComponent implements OnInit {
   {
     this.modal = false;
     this.readonly = true;
+  }
+
+  getAllOrder()
+  {
+    this.apiOrder.GetAll(0, environment.pagination)
+    .subscribe({
+      next: (data:any) => {
+        this.orders = data.orders;
+        this.order.totalItems = data.total;
+        this.order.totalPage = Math.floor(data.total / environment.pagination);
+        this.order.page = data.page;
+      },
+      error: error => {
+        this.order.callbackSuccess = false;
+        this.order.callbackMessage = error;
+        this.alert = true;
+        console.error(error);
+        setTimeout(() => {
+          this.alert = false;
+        }, 5000);
+      },
+    });
+  }
+
+  getAllOcorrency()
+  {
+    this.apiOcorrency.GetAll()
+    .subscribe({
+      next: (data:any) => {
+        this.ocorrencies = data.ocorrencies;
+      },
+      error: error => {
+        this.alert = true;
+        console.error(error);
+        setTimeout(() => {
+          this.alert = false;
+        }, 5000);
+      },
+    });
+  }
+
+  getAllOcorrencyDetail()
+  {
+    this.apiDetail.GetAll()
+    .subscribe({
+      next: (data:any) => {
+        this.details = data.ocorrencyDetails;
+      },
+      error: error => {
+        this.alert = true;
+        console.error(error);
+        setTimeout(() => {
+          this.alert = false;
+        }, 5000);
+      },
+    });
+  }
+
+  getAllStatus()
+  {
+    this.apiStatus.GetAll()
+    .subscribe({
+      next: (data:any) => {
+        this.statuses = data.orderStatus;
+      },
+      error: error => {
+        this.alert = true;
+        console.error(error);
+        setTimeout(() => {
+          this.alert = false;
+        }, 5000);
+      },
+    });
   }
 }
