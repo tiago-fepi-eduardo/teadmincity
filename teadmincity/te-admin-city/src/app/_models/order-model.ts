@@ -18,6 +18,7 @@ export class OrderModel {
     totalItems: number;
     totalPage: number;
     page: number;
+    
     callbackSuccess!: boolean;
     callbackMessage!: string;
 }

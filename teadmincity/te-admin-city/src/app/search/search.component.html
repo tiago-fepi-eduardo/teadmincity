@@ -4,12 +4,12 @@
       <tr>
         <th>
             <div class="control">
-                <input class="input is-hovered" type="text" placeholder="ID da ocorrência">
+                <input class="input is-hovered" type="text" placeholder="ID" [(ngModel)]="searchModel.id">
               </div>
         </th>
         <th>
             <div class="select">
-                <select>
+                <select [(ngModel)]="searchModel.ocorrencyId">
                     <option value="0">All</option>
                     <option *ngFor="let ocorrency of ocorrencies; let i = index" [value]=ocorrency.id>{{ocorrency.name}}</option>
                 </select>
@@ -17,7 +17,7 @@
         </th>
         <th>
             <div class="select">
-                <select>
+                <select [(ngModel)]="searchModel.ocorrencyDetailId">
                     <option value="0">All</option>
                     <option *ngFor="let detail of details; let i = index" [value]=detail.id>{{detail.description}}</option>
                 </select>
@@ -25,15 +25,25 @@
         </th>
         <th>
             <div class="select">
-                <select>
+                <select [(ngModel)]="searchModel.orderStatusId">
                     <option value="0">All</option>
                     <option *ngFor="let status of statuses; let i = index" [value]=status.id>{{status.name}}</option>
                 </select>
             </div>
         </th>
         <th>
+          <div class="control">
+              <input class="input is-hovered" type="date" [(ngModel)]="searchModel.startDate">
+          </div>
+        </th>
+        <th>
+          <div class="control">
+              <input class="input is-hovered" type="date" [(ngModel)]="searchModel.endDate">
+          </div>
+        </th>
+        <th>
             <div class="buttons">
-                <button class="button is-info">Filtrar</button>
+                <button class="button is-info" (click)="filterData()">Filter</button>
             </div>
         </th>
 
@@ -85,8 +95,7 @@
 <!-- Modal -->
 <div class="modal" [ngClass]="{'show': modal, 'none': !modal}">
     <div class="modal-background"></div>
-    <div class="modal-card">
-    <!--form [formGroup]="form" (ngSubmit)="putData()"-->
+    <div class="modal-card">    
       <header class="modal-card-head">
         <p class="modal-card-title"></p>
         <button class="delete" aria-label="close" (click)="closeData()"></button>
@@ -200,7 +209,6 @@
         <button class="button is-success" (click)="putData()" *ngIf="!readonly">Save changes</button>
         <button class="button" (click)="closeData()">Cancel</button>
       </footer>
-    <!--/form-->
     </div>
 </div>
 

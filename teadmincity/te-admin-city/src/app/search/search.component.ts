@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { OrderService } from '../_services/order.service';
 import { OrderStatusService } from '../_services/order-status.service';
 import { OcorrencyService } from '../_services/ocorrency.service';
@@ -7,7 +8,7 @@ import { OrderModel } from '../_models/order-model';
 import { OcorrencyModel } from '../_models/ocorrency-model';
 import { OcorrencyDetailModel } from '../_models/ocorrency-detail-model';
 import { OrderStatusModel } from '../_models/order-status-model';
-import { environment } from '../../environments/environment';
+import { SearchModel } from '../_models/search-model';
 
 @Component({
   selector: 'app-search',
@@ -21,6 +22,7 @@ export class SearchComponent implements OnInit {
   ocorrencies: OcorrencyModel[] = [];
   details: OcorrencyDetailModel[] = [];
   statuses: OrderStatusModel[] = [];
+  searchModel: SearchModel;
   modal: boolean;
   readonly: boolean;
   alert: boolean;
@@ -37,6 +39,7 @@ export class SearchComponent implements OnInit {
     this.order.ocorrency = new OcorrencyModel();
     this.order.ocorrencyDetail = new OcorrencyDetailModel();
     this.order.orderStatus = new OrderStatusModel();
+    this.searchModel = new SearchModel();
     this.modal = false;
     this.readonly = true;
     this.alert = false;
@@ -53,12 +56,16 @@ export class SearchComponent implements OnInit {
   {
     if(page >= 0 && page <= this.order.totalPage)
     {
-      let skip = environment.pagination * page;
+      this.searchModel.skip = environment.pagination * page;
+      this.searchModel.page = environment.pagination;
 
-      this.apiOrder.GetAll(skip, environment.pagination)
+      this.apiOrder.Patch(this.searchModel)
       .subscribe({
         next: (data:any) => {
-          this.orders = data.contacts;
+          if(data.total > 0)
+            this.orders = data.orders;
+          else
+            this.orders = [];
           this.order.totalItems = data.total;
           this.order.totalPage = Math.floor(data.total / environment.pagination);
           this.order.page = data.page;
@@ -108,6 +115,41 @@ export class SearchComponent implements OnInit {
     this.readonly = true;
   }
 
+  filterData()
+  {
+    this.apiOrder.Patch(this.searchModel)
+      .subscribe({
+        next: (data:any) => {
+          if(data.total > 0)
+            this.orders = data.orders;
+          else
+            this.orders = [];
+          this.order.totalItems = data.total;
+          this.order.totalPage = Math.floor(data.total / environment.pagination);
+          this.order.page = data.page;          
+          this.order.callbackSuccess = true;
+          this.order.callbackMessage = 'Success.';
+          this.alert = true;
+          setTimeout(() => {
+            this.alert = false;
+          }, 5000);
+        },
+        error: error => {
+          this.order.callbackSuccess = false;
+          this.order.callbackMessage = error;
+          this.alert = true;
+          setTimeout(() => {
+            this.alert = false;
+          }, 5000);
+          console.error(error);
+        },
+      });
+
+    this.modal = false;
+    this.readonly = true;
+  }
+
+
   viewData(id: number)
   {
     var result = this.orders.find(x => x.id == id);
@@ -154,10 +196,16 @@ export class SearchComponent implements OnInit {
 
   getAllOrder()
   {
-    this.apiOrder.GetAll(0, environment.pagination)
+    this.searchModel.page = environment.pagination;
+    this.searchModel.skip = 0;
+
+    this.apiOrder.Patch(this.searchModel)
     .subscribe({
       next: (data:any) => {
-        this.orders = data.orders;
+        if(data.total > 0)
+            this.orders = data.orders;
+          else
+            this.orders = [];
         this.order.totalItems = data.total;
         this.order.totalPage = Math.floor(data.total / environment.pagination);
         this.order.page = data.page;
