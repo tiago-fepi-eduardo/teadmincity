@@ -5,6 +5,12 @@
 export const environment = {
   production: false,
   pagination: 10,
+  defaultLocation:
+  {
+    latitude:-23.5120687,
+    longitude: -46.9170876,
+    zoom: 13
+  },
   endpoints:
   {
     order: "http://localhost/api/order",

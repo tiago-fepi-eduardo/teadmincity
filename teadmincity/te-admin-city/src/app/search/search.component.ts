@@ -149,7 +149,6 @@ export class SearchComponent implements OnInit {
     this.readonly = true;
   }
 
-
   viewData(id: number)
   {
     var result = this.orders.find(x => x.id == id);
