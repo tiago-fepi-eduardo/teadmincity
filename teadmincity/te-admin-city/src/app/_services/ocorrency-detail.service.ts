@@ -10,14 +10,17 @@ export class OcorrencyDetailService {
 
   constructor(private http:HttpClient, private jwt: JwtService) { }
 
-  GetAll()
+  GetAll(ocorrencyId: number)
   {
     let header = new HttpHeaders()
       .set('Authorization', `bearer ` + this.jwt.jwtToken);
 
     return this.http.get(environment.endpoints.ocorrencyDetail, 
     {
-      headers : header
+      headers : header,
+      params:{
+        'ocorrencyId': ocorrencyId.toString()
+      }
     })
   }
 }

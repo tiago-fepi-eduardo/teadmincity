@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { ExportService } from '../_services/export.service';
 import { OrderService } from '../_services/order.service';
 import { OrderStatusService } from '../_services/order-status.service';
 import { OcorrencyService } from '../_services/ocorrency.service';
@@ -31,10 +32,13 @@ export class SearchComponent implements OnInit {
   ddlDetailIndex: number;
   ddlStatusIndex: number;
 
+  @ViewChild('searchTable') searchTable: ElementRef;
+
   constructor(private apiOrder:OrderService, 
       private apiOcorrency:OcorrencyService,
       private apiDetail:OcorrencyDetailService,
-      private apiStatus:OrderStatusService) { 
+      private apiStatus:OrderStatusService,
+      private exportService: ExportService) { 
     this.order = new OrderModel();
     this.order.ocorrency = new OcorrencyModel();
     this.order.ocorrencyDetail = new OcorrencyDetailModel();
@@ -48,7 +52,6 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.getAllOrder();
     this.getAllOcorrency();
-    this.getAllOcorrencyDetail();
     this.getAllStatus();
   }
 
@@ -86,9 +89,9 @@ export class SearchComponent implements OnInit {
   putData()
   {
     this.order.ocorrencyId = this.ocorrencies[this.ddlOcorrencyIndex -1].id;
-    this.order.ocorrencyDetailId = this.details[this.ddlDetailIndex -1].id;
+    this.order.ocorrencyDetailId = this.ddlDetailIndex;
     this.order.orderStatusId = this.statuses[this.ddlStatusIndex -1].id;
-        
+    
     this.apiOrder.Put(this.order)
       .subscribe({
         next: (data:any) => {
@@ -182,8 +185,9 @@ export class SearchComponent implements OnInit {
       this.readonly = false;
 
       this.ddlOcorrencyIndex = (this.ocorrencies.findIndex(c => c.id == this.order.ocorrency.id)) + 1;
-      this.ddlDetailIndex = (this.details.findIndex(c => c.id == this.order.ocorrencyDetail.id)) + 1;
       this.ddlStatusIndex = (this.statuses.findIndex(c => c.id == this.order.orderStatus.id)) + 1;
+      this.getAllOcorrencyDetail(this.order.ocorrency.id);
+      this.ddlDetailIndex = this.order.ocorrencyDetail.id;//(this.details.findIndex(c => c.id == this.order.ocorrencyDetail.id)) + 1;
     }
   }
 
@@ -238,21 +242,26 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  getAllOcorrencyDetail()
+  getAllOcorrencyDetail(ocorrencyId: number)
   {
-    this.apiDetail.GetAll()
-    .subscribe({
-      next: (data:any) => {
-        this.details = data.ocorrencyDetails;
-      },
-      error: error => {
-        this.alert = true;
-        console.error(error);
-        setTimeout(() => {
-          this.alert = false;
-        }, 5000);
-      },
-    });
+    if(ocorrencyId > 0)
+    {
+      this.apiDetail.GetAll(ocorrencyId)
+      .subscribe({
+        next: (data:any) => {
+          this.details = data.ocorrencyDetails;
+        },
+        error: error => {
+          this.alert = true;
+          console.error(error);
+          setTimeout(() => {
+            this.alert = false;
+          }, 5000);
+        },
+      });
+    }
+    else
+      this.details = [];
   }
 
   getAllStatus()
@@ -270,5 +279,10 @@ export class SearchComponent implements OnInit {
         }, 5000);
       },
     });
+  }
+
+  exportTable(){
+    if(confirm("Are you sure want to print?"))
+      this.exportService.exportTableElmToExcel(this.searchTable, 'Report-' + Date.now.toString());
   }
 }

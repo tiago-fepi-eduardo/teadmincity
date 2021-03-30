@@ -1,26 +1,29 @@
+<!--Charts-->
 <div class="tile is-ancestor">
   <div class="tile is-horizontal"> 
     <div class="tile is-parent">
       <article class="tile is-child box">
-        <p class="title">Graph 1 fixed</p>
-            <p>Lorem.</p>
+        <!--Chart one-->
+        <div echarts [options]="optionsChartOne" class="demo-chart">
+        </div>
       </article>
     </div>
     <div class="tile is-parent">
       <article class="tile is-child box">
-        <p class="title">Graph 2 fixed</p>
-            <p>Loren.</p>
+        <!-- Chart two-->
+        <echarts [initOpts]="initOpts" [options]="optionsChartTwo"></echarts>
       </article>
     </div>
     <div class="tile is-parent">
       <article class="tile is-child box">
-        <p class="title">Graph 3 fixed</p>
-            <p>Lorem.</p>
+        <!-- Chart three-->
+        <div echarts [options]="optionsChartThree" [loading]="isLoading" theme="macarons" class="demo-chart"></div>
       </article>
     </div>
   </div>
 </div>
 
+<!--News-->
 <div class="tile is-ancestor"> 
   <div class="tile is-vertical is-8">    
     <div class="tile is-parent" *ngFor="let new of news; let num = index">
@@ -35,21 +38,13 @@
     <div class="tile is-parent">
       <article class="tile is-child box">
         <p class="title">Last incomes</p>
-        <ul>
-          <li>Lorem ipsum dolor sit amet.</li>
-          <li>Lorem ipsum dolor sit amet.</li>
-          <li>Lorem ipsum dolor sit amet.</li>
-          <li>Lorem ipsum dolor sit amet.</li>
-          <li>Lorem ipsum dolor sit amet.</li>
+        <ul *ngFor="let order of report.lastIncomes; let num = index">
+          <li>Order {{order.id}} | {{order.ocorrency.name}} | {{order.ocorrencyDetail.description}}</li>
         </ul>
-
+        <br>
         <p class="title">Last updates</p>
-        <ul>
-          <li>Lorem ipsum dolor sit amet.</li>
-          <li>Lorem ipsum dolor sit amet.</li>
-          <li>Lorem ipsum dolor sit amet.</li>
-          <li>Lorem ipsum dolor sit amet.</li>
-          <li>Lorem ipsum dolor sit amet.</li>
+        <ul *ngFor="let order of report.lastUpdates; let num = index">
+          <li>Order {{order.id}} | {{order.ocorrency.name}} | {{order.ocorrencyDetail.description}}</li>
         </ul>
       </article>
     </div>

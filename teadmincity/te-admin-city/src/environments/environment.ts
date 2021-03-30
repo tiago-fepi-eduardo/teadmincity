@@ -18,6 +18,7 @@ export const environment = {
     about: "http://localhost/api/about",
     login: "http://localhost/api/user/authenticate",
     news: "http://localhost/api/news",
+    report: "http://localhost/api/report",
     ocorrency: "http://localhost/api/ocorrency",
     ocorrencyDetail: "http://localhost/api/ocorrencyDetail",
     orderStatus: "http://localhost/api/orderStatus",

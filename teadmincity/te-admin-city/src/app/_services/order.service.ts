@@ -38,7 +38,7 @@ export class OrderService {
   {
     let header = new HttpHeaders()
       .set('Authorization', `Bearer ` + this.jwt.jwtToken)
-     
+   
     return this.http.put(environment.endpoints.order,
       {
         'id':order.id,

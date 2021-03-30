@@ -13,7 +13,7 @@
         </th>
         <th>
             <div class="select">
-                <select [(ngModel)]="searchModel.ocorrencyId">
+                <select [(ngModel)]="searchModel.ocorrencyId" (ngModelChange)="getAllOcorrencyDetail($event)">
                     <option value="0">All</option>
                     <option *ngFor="let ocorrency of ocorrencies; let i = index" [value]=ocorrency.id>{{ocorrency.name}}</option>
                 </select>
@@ -50,13 +50,17 @@
                 <button class="button is-info" (click)="filterData()">Filter</button>
             </div>
         </th>
-
+        <th>
+          <div class="buttons">
+            <img class="icon-print" src="../../assets/img/printing.png" (click)="exportTable()">
+          </div>
+        </th>
       </tr>
     </thead>
 </table>
 
 <!--Content grid-->
-<table class="table is-fullwidth">
+<table class="table is-fullwidth" #searchTable>
     <thead>
       <tr>
         <th>Id</th>
@@ -144,8 +148,7 @@
                 <ng-template #editableOcorrency>
                 <div class="select">
                   <select [(ngModel)]="ddlOcorrencyIndex">
-                      <option *ngFor="let ocorrency of ocorrencies; let i = index" [ngValue]=ocorrency.id 
-                      [attr.selected]="ocorrency.id == order.ocorrency.id ? true : null">{{ocorrency.name}}</option>
+                      <option *ngFor="let ocorrency of ocorrencies; let i = index" [ngValue]=ocorrency.id>{{ocorrency.name}}</option>
                   </select>
                 </div>
               </ng-template>
@@ -165,8 +168,7 @@
                 <ng-template #editableDetail>
                 <div class="select">
                   <select [(ngModel)]="ddlDetailIndex">
-                      <option *ngFor="let detail of details; let i = index" [ngValue]=detail.id
-                      [attr.selected]="detail.id == order.ocorrencyDetail.id ? true : null">{{detail.description}}</option>
+                      <option *ngFor="let detail of details; let i = index" [ngValue]=detail.id>{{detail.description}}</option>
                   </select>
                 </div>
               </ng-template>
@@ -186,8 +188,7 @@
               <ng-template #editableStatus>
               <div class="select">
                 <select [(ngModel)]="ddlStatusIndex">
-                    <option *ngFor="let status of statuses; let i = index" [ngValue]=status.id
-                    [attr.selected]="status.id == order.orderStatus.id ? true : null">{{status.name}}</option>
+                    <option *ngFor="let status of statuses; let i = index" [ngValue]=status.id>{{status.name}}</option>
                 </select>
               </div>
               </ng-template>

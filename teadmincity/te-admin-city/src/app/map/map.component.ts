@@ -58,7 +58,6 @@ export class MapComponent implements OnInit {
   ngOnInit(): void {
       this.getAllOrder();
       this.getAllOcorrency();
-      this.getAllOcorrencyDetail();
       this.getAllStatus();
   }
 
@@ -70,7 +69,6 @@ export class MapComponent implements OnInit {
           if(data.total > 0){
             this.orders = data.orders;
             this.convertToMapsArray(data.orders);
-            console.info(this.maps);
           }
           else
           {
@@ -152,21 +150,26 @@ export class MapComponent implements OnInit {
     });
   }
 
-  getAllOcorrencyDetail()
+  getAllOcorrencyDetail(ocorrencyId : number)
   {
-    this.apiDetail.GetAll()
-    .subscribe({
-      next: (data:any) => {
-        this.details = data.ocorrencyDetails;
-      },
-      error: error => {
-        this.alert = true;
-        console.error(error);
-        setTimeout(() => {
-          this.alert = false;
-        }, 5000);
-      },
-    });
+    if(ocorrencyId > 0)
+    {
+      this.apiDetail.GetAll(ocorrencyId)
+      .subscribe({
+        next: (data:any) => {
+          this.details = data.ocorrencyDetails;
+        },
+        error: error => {
+          this.alert = true;
+          console.error(error);
+          setTimeout(() => {
+            this.alert = false;
+          }, 5000);
+        },
+      });
+    }
+    else
+      this.details = [];
   }
 
   getAllStatus()
@@ -219,15 +222,16 @@ export class MapComponent implements OnInit {
       this.readonly = false;
 
       this.ddlOcorrencyIndex = (this.ocorrencies.findIndex(c => c.id == this.order.ocorrency.id)) + 1;
-      this.ddlDetailIndex = (this.details.findIndex(c => c.id == this.order.ocorrencyDetail.id)) + 1;
       this.ddlStatusIndex = (this.statuses.findIndex(c => c.id == this.order.orderStatus.id)) + 1;
+      this.getAllOcorrencyDetail(this.order.ocorrency.id);
+      this.ddlDetailIndex = this.order.ocorrencyDetail.id;
     }
   }
 
   putData()
   {
     this.order.ocorrencyId = this.ocorrencies[this.ddlOcorrencyIndex -1].id;
-    this.order.ocorrencyDetailId = this.details[this.ddlDetailIndex -1].id;
+    this.order.ocorrencyDetailId = this.ddlDetailIndex;
     this.order.orderStatusId = this.statuses[this.ddlStatusIndex -1].id;
         
     this.apiOrder.Put(this.order)

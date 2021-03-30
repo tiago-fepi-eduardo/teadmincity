@@ -4,6 +4,7 @@ import { AgmCoreModule } from '@agm/core';
 import { HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,6 +41,9 @@ import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDaniPLp98EiLdP7uFnwiuLLTCglvAP8v4'
+    }),
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
     })
   ],
   providers: [CookieService],

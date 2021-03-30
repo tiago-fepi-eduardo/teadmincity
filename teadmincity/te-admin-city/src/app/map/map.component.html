@@ -13,7 +13,7 @@
       </th>
       <th>
           <div class="select">
-              <select [(ngModel)]="searchModel.ocorrencyId">
+              <select [(ngModel)]="searchModel.ocorrencyId" (ngModelChange)="getAllOcorrencyDetail($event)">
                   <option value="0">All</option>
                   <option *ngFor="let ocorrency of ocorrencies; let i = index" [value]=ocorrency.id>{{ocorrency.name}}</option>
               </select>
